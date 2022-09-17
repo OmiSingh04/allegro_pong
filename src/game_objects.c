@@ -36,5 +36,3 @@ bool detect_and_add_point(Ball *ball, Player *player1, Player *player2, Dimensio
 
 	return false;	
 }
-
-
