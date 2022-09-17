@@ -43,7 +43,7 @@ void move_bar(Bar* bar, y_direction direction){
 			bar->y -= 1.5f;
 			break;
 		case DOWN:
-			bar->y -= 1.5;
+			bar->y += 1.5;
 			break;
 	}
 }
