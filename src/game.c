@@ -1,4 +1,4 @@
-#include "game_objects.h"
+#include "game.h"
 bool detect_collisions(Ball *ball, Bar *bar1, Bar *bar2, Dimension *screen_dimensions){
 
 
@@ -35,4 +35,15 @@ bool detect_and_add_point(Ball *ball, Player *player1, Player *player2, Dimensio
 	}
 
 	return false;	
+}
+
+void move_bar(Bar* bar, y_direction direction){
+	switch(direction){
+		case UP:
+			bar->y -= 1.5f;
+			break;
+		case DOWN:
+			bar->y -= 1.5;
+			break;
+	}
 }

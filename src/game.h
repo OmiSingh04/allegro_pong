@@ -1,9 +1,12 @@
-#ifndef GAME_OBJECTS_H
-#define GAME_OBJECTS_H
+#ifndef GAME__H
+#define GAME__H
 
 #include<stdbool.h>
 #include<allegro5/allegro5.h>
 #include "player.h"
+
+enum y_direction{UP, DOWN};//I HOPE THIS IS HOW YOU USE THESE THINGS
+	
 
 typedef struct Dimension{//i think i could have just gone with using vector for dimension too, but this is way cooler.
 	unsigned int width;
@@ -18,7 +21,6 @@ typedef struct Vector2{//2 Dimensional vector
 
 typedef struct Bar{
 	Vector2 position;
-	Vector2 velocity;
 	Dimension size;
 	ALLEGRO_COLOR *color;
 } Bar;
@@ -34,5 +36,7 @@ typedef struct Ball{
 bool detect_collision(Ball *ball, Bar *bar1, Bar *bar2, Dimension *screen_dimensions);
 
 bool detect_and_add_point(Ball *ball, Player *player1, Player *player2, Dimension *screen_dimensions);//when ball reaches extreme left or right, giving a point to player
+
+void move_bar(Bar* bar, y_direction direction);
 
 #endif
