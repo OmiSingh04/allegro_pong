@@ -29,16 +29,17 @@ typedef struct Bar{
 
 typedef struct Ball{
 	Vector2 position;
-	Vector2 Velocity;
+	Vector2 velocity;
 	int radius;
 	ALLEGRO_COLOR color;
 } Ball;
 
 
-bool detect_collision(Ball *ball, Bar *bar1, Bar *bar2, Dimension *screen_dimensions);
 
-bool detect_and_add_point(Ball *ball, Player *player1, Player *player2, Dimension *screen_dimensions);//when ball reaches extreme left or right, giving a point to player
+bool detect__point(Ball ball, Player player1, Player player2, Dimension screen_dimensions);//when ball reaches extreme left or right, giving a point to player
 
-void move_bar(Bar* bar, enum y_direction direction);
+void move_bar(Bar* bar, enum y_direction direction, unsigned int screen_height);
+
+void update_ball(Ball *ball, Bar bar1, Bar bar2, Dimension screen_dimensions);
 
 #endif
