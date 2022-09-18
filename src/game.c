@@ -37,13 +37,13 @@ bool detect_and_add_point(Ball *ball, Player *player1, Player *player2, Dimensio
 	return false;	
 }
 
-void move_bar(Bar* bar, y_direction direction){
+void move_bar(Bar* bar, enum y_direction direction){
 	switch(direction){
 		case UP:
-			bar->y -= 1.5f;
+			bar->position.y -= 1.5f;
 			break;
 		case DOWN:
-			bar->y += 1.5;
+			bar->position.y += 1.5;
 			break;
 	}
 }

@@ -5,6 +5,8 @@
 #include<allegro5/allegro5.h>
 #include "player.h"
 
+
+
 enum y_direction{UP, DOWN};//I HOPE THIS IS HOW YOU USE THESE THINGS
 	
 
@@ -22,14 +24,14 @@ typedef struct Vector2{//2 Dimensional vector
 typedef struct Bar{
 	Vector2 position;
 	Dimension size;
-	ALLEGRO_COLOR *color;
+	ALLEGRO_COLOR color;
 } Bar;
 
 typedef struct Ball{
 	Vector2 position;
 	Vector2 Velocity;
 	int radius;
-	ALLEGRO_COLOR *color;
+	ALLEGRO_COLOR color;
 } Ball;
 
 
@@ -37,6 +39,6 @@ bool detect_collision(Ball *ball, Bar *bar1, Bar *bar2, Dimension *screen_dimens
 
 bool detect_and_add_point(Ball *ball, Player *player1, Player *player2, Dimension *screen_dimensions);//when ball reaches extreme left or right, giving a point to player
 
-void move_bar(Bar* bar, y_direction direction);
+void move_bar(Bar* bar, enum y_direction direction);
 
 #endif
