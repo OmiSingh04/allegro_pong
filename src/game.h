@@ -35,8 +35,7 @@ typedef struct Ball{
 } Ball;
 
 
-
-bool detect__point(Ball ball, Player player1, Player player2, Dimension screen_dimensions);//when ball reaches extreme left or right, giving a point to player
+bool detect__point(Ball ball, Player player1, Player player2, Dimension screen_dimensions);
 
 void move_bar(Bar* bar, enum y_direction direction, unsigned int screen_height);
 

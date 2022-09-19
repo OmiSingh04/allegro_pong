@@ -62,7 +62,7 @@ int main(){
 
 	Bar bar1 = {.position = {.x = 100, .y = 640 / 2 - 20 / 2}, .size = {.width = 20, .height = 100}, .color = al_map_rgb(255, 255, 255)};
 	Bar bar2 = {.position = {.x = 900 - 20, .y = 640 / 2 - 20 / 2}, .size = {.width = 20, .height = 100}, .color = al_map_rgb(255, 255, 255)};
-	Ball ball = {.position = {.x = DISPLAY_WIDTH/2 - BALL_RADIUS/2, .y = DISPLAY_HEIGHT/2 - BALL_RADIUS/2}, {.x = 3.0, .y = 5.0}, BALL_RADIUS, al_map_rgb(255, 255, 255)};
+	Ball ball = {.position = {.x = DISPLAY_WIDTH/2 - BALL_RADIUS/2, .y = DISPLAY_HEIGHT/2 - BALL_RADIUS/2}, {.x = -3.0, .y = 5.0}, BALL_RADIUS, al_map_rgb(255, 255, 255)};
 
 	bool game_over = false;
 	bool redraw = false;

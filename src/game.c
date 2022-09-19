@@ -55,11 +55,17 @@ void update_ball(Ball *ball, Bar bar1, Bar bar2, Dimension screen_dimensions){
 	//bar collisions
 
 	//need to do the boolean checks again. reflects even without bar.
-	if(((ball->position.x <= bar1.position.x + bar1.size.width) &&
-            (ball->position.y + ball->radius > bar1.position.y || ball->position.y < bar1.position.y + bar1.size.height)) || 
-	    (ball->position.x + ball->radius >= bar2.position.x && (ball->position.y + ball->radius > bar2.position.y || 
-	     ball->position.y < bar2.position.y + bar2.size.height))){
-	    	ball->velocity.x *= -1;
+	  
+	//bar1 and ball 	
+	if(bar1.position.x + bar1.size.width > ball->position.x && 
+		((ball->position.y + ball->radius > bar1.position.y) && (ball->position.y < bar1.position.y + bar1.size.width))){
+		ball->velocity.x *= -1;
+		play_collide();
+	}
+
+	if(bar2.position.x > ball->position.x + ball->radius && 
+		/*y value cecks*/	(bar2.position.y < ball->position.y + ball->radius && bar2.position.y + bar2.size.height > ball->position.y)){
+		ball->velocity.x *= -1;
 		play_collide();
 	}
 
