@@ -55,15 +55,14 @@ int main(){
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
 	al_register_event_source(event_queue, al_get_display_event_source(disp));
 	al_register_event_source(event_queue, al_get_timer_event_source(timer));
-
+	
 	init_sound_files();
 	printf("meow\n");
 
 
-	Bar bar1 = {.position = {.x = 100, .y = 640 / 2 - 20 / 2}, .size = {.width = 20, .height = 100}, .color = al_map_rgb(255, 255, 255)};
-	Bar bar2 = {.position = {.x = 900 - 20, .y = 640 / 2 - 20 / 2}, .size = {.width = 20, .height = 100}, .color = al_map_rgb(255, 255, 255)};
-	Ball ball = {.position = {.x = DISPLAY_WIDTH/2 - BALL_RADIUS/2, .y = DISPLAY_HEIGHT/2 - BALL_RADIUS/2}, {.x = -3.0, .y = 5.0}, BALL_RADIUS, al_map_rgb(255, 255, 255)};
-
+	Bar bar1 = {.position = {.x = 100, .y = 640 / 2 - 20 / 2}, .size = {.width = 20, .height = 100}, .color = al_map_rgb(255, 192, 203)};
+	Bar bar2 = {.position = {.x = 900 - 20, .y = 640 / 2 - 20 / 2}, .size = {.width = 20, .height = 100}, .color = al_map_rgb(255, 192, 203)};
+	Ball ball = {.position = {.x = DISPLAY_WIDTH/2 - BALL_RADIUS/2, .y = DISPLAY_HEIGHT/2 - BALL_RADIUS/2}, {.x = -3.0, .y = 5.0}, BALL_RADIUS, al_map_rgb(255, 0, 0)};
 	bool game_over = false;
 	bool redraw = false;
 	ALLEGRO_EVENT event;
@@ -132,8 +131,7 @@ int main(){
 			al_draw_filled_rectangle(bar2.position.x, bar2.position.y, bar2.position.x + bar2.size.width, 
 						 bar2.position.y + bar2.size.height, bar2.color);
 
-			al_draw_filled_circle(ball.position.x + (float)ball.radius/2, ball.position.y + (float)ball.radius/2, BALL_RADIUS, al_map_rgb(255, 255, 255));
-
+			al_draw_filled_circle(ball.position.x + (float)ball.radius/2, ball.position.y + (float)ball.radius/2, BALL_RADIUS, ball.color);
 
 			al_flip_display();
 			redraw = false;

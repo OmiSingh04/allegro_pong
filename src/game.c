@@ -62,6 +62,7 @@ void update_ball(Ball *ball, Bar bar1, Bar bar2, Dimension screen_dimensions){
 		ball->velocity.x *= -1;
 		play_collide();
 	}
+		//i see the error now...
 
 	if(bar2.position.x > ball->position.x + ball->radius && 
 		/*y value cecks*/	(bar2.position.y < ball->position.y + ball->radius && bar2.position.y + bar2.size.height > ball->position.y)){
