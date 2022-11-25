@@ -35,7 +35,9 @@ typedef struct Ball{
 } Ball;
 
 
-bool detect__point(Ball ball, Player player1, Player player2, Dimension screen_dimensions);
+void reset_state(Bar* bar1, Bar* bar2, Ball* ball, Dimension display_dimensions, float BALL_RADIUS);
+
+bool detect_point(Ball ball, Player* player1, Player* player2, Dimension screen_dimensions);
 
 void move_bar(Bar* bar, enum y_direction direction, unsigned int screen_height);
 

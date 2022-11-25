@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include<stdlib.h>
+
+
+
 #include <allegro5/allegro5.h>
-
-
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
-
-#include <allegro5/allegro_primitives.h>	
+#include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_font.h>
 
 #include "game.h"
 #include "sound.h"
@@ -16,6 +17,8 @@
 #define DISPLAY_HEIGHT 800
 #define BALL_RADIUS 15
 #define CENTRE_LINE_WIDTH 5
+
+
 
 
 Vector2 *generate_stars(){
@@ -64,12 +67,22 @@ int main(){
 	must_init(al_install_audio(), "audio");
     	must_init(al_init_acodec_addon(), "audio codecs");
     	must_init(al_reserve_samples(16), "reserve samples");
+	must_init(al_init_font_addon(), "fonts");
 
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
 	al_register_event_source(event_queue, al_get_display_event_source(disp));
 	al_register_event_source(event_queue, al_get_timer_event_source(timer));
 	
 	init_sound_files();
+	
+
+	Player player1 = {.name = {0}, .points = 0}, player2  = {.name = {0}, .points = 0};
+	printf("Player1\nEnter your name\n");
+	fgets(player1.name, 20, stdin);
+	
+
+	printf("Player2\nEnter your name\n");
+	fgets(player2.name, 20, stdin);
 
 
 	Bar bar1 = {.position = {.x = 100, .y = 640 / 2 - 20 / 2}, .size = {.width = 20, .height = 100}, .color = al_map_rgb(255, 192, 203)};
@@ -85,10 +98,16 @@ int main(){
 	
 
 	Vector2* stars = generate_stars();
+	
+
+	bool point = false;
+	
 
 	al_start_timer(timer);//generates events, as the timer increments at a constant rate
 	while(!game_over){
-		
+
+				
+	
 		al_wait_for_event(event_queue, &event);
 		switch(event.type){
 			case ALLEGRO_EVENT_TIMER:
@@ -130,8 +149,18 @@ int main(){
 				game_over = true;
 		}
 
+		if(game_over)
+			break;
 		
 		update_ball(&ball, bar1, bar2, display_dimensions);
+		point = detect_point(ball, &player1, &player2, display_dimensions);
+		
+
+		if(point)
+			reset_state(&bar1, &bar2, &ball, display_dimensions, BALL_RADIUS);
+		
+		
+		game_over = (!game_over && (player1.points >= 5 || player2.points >= 5))?true:false;
 		if(redraw){
 				
 			al_clear_to_color(al_map_rgb(0, 0, 0));
@@ -159,6 +188,8 @@ int main(){
 						 bar2.position.y + bar2.size.height, bar2.color);
 
 			al_draw_filled_circle(ball.position.x + (float)ball.radius/2, ball.position.y + (float)ball.radius/2, BALL_RADIUS, ball.color);
+
+
 
 			al_flip_display();
 			redraw = false;

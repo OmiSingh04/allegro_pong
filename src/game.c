@@ -2,17 +2,27 @@
 #include "sound.h"
 #define BAR_VELOCITY  6.0
 
+
+void reset_state(Bar* bar1, Bar* bar2, Ball* ball, Dimension display_dimensions, float BALL_RADIUS){
+	Vector2 v_bar1 = {.x = 100, .y = 640 / 2 - 20 / 2};
+	bar1->position = v_bar1;
+	Vector2 v_bar2 =  {.x = 900 - 20, .y = 640 / 2 - 20 / 2};
+	bar2->position = v_bar2;
+	Vector2 v_ball = {.x = display_dimensions.width/2 - BALL_RADIUS/2, .y = display_dimensions.height/2 - BALL_RADIUS/2};
+	ball->position = v_ball;
+}
+
 bool detect_point(Ball ball, Player *player1, Player *player2, Dimension screen_dimensions){
 
 	if(ball.position.x < 0){
 		player2->points++;
-		play_collide();
+		play_game_over();
 		return true;
 	}
 
  	if(ball.position.x + ball.radius > screen_dimensions.width){
 		player1->points++;
-		//play_collide();
+		play_game_over();
 		return true;
 	}
 
@@ -38,10 +48,21 @@ void move_bar(Bar* bar, enum y_direction direction, unsigned int screen_height){
 
 void update_ball(Ball *ball, Bar bar1, Bar bar2, Dimension screen_dimensions){
 
+
+
 	//simply move the ball! but with twists
 	ball->position.x += ball->velocity.x;
 	ball->position.y += ball->velocity.y;
 
+
+	//great idea, just check in the beginning if the ball has passed... the point of no return. No more weird glitch.
+	//Yeah i have no game dev knowledge
+	if(ball->position.x + ball->radius < bar1.position.x)
+		return;
+
+
+	if(ball->position.x - ball->radius > bar2.position.x + bar2.size.width)
+		return;
 
 	//within screen dimensions check - 
 	
