@@ -1,5 +1,6 @@
 A pong game being written in C. This is also... probably my first official C project...
 
+Library - [allegro](https://liballeg.org/) <br>
 Drowning in school work. Help pls. <br>
 <br>
 Its actually turning out to be really bad... The collisions are glitchy, and the ball's speed is not consistent at all. <br>
