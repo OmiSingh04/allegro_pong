@@ -44,10 +44,20 @@ void must_init(bool test, const char *message){
 
 int main(){
 	
+	Player player1 = {.name = {0}, .points = 0}, player2  = {.name = {0}, .points = 0};
+	printf("Player1 - Enter your name\n");
+	fgets(player1.name, 20, stdin);
+	player1.name[strlen(player1.name) - 1] = 0;
+
+	printf("Player2 - Enter your name\n");
+	fgets(player2.name, 20, stdin);
+	player2.name[strlen(player2.name) - 1] = 0;
 	must_init(al_init(), "allegro");
 	must_init(al_install_keyboard(), "keyboard");
 	
-	ALLEGRO_TIMER *timer = al_create_timer(1.0 / 60.0);
+	ALLEGRO_TIMER *timer = al_create_timer(1.0 / 60.0);//for frame rate
+	ALLEGRO_TIMER *count = al_create_timer(1);
+
 	must_init(timer, "timer");
 
 	ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
@@ -72,27 +82,50 @@ int main(){
 	must_init(al_init_ttf_addon(), "ttf_fonts");
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
 	al_register_event_source(event_queue, al_get_display_event_source(disp));
-	al_register_event_source(event_queue, al_get_timer_event_source(timer));
 	
 	init_sound_files();
 	load_fonts();
 
-	Player player1 = {.name = {0}, .points = 0}, player2  = {.name = {0}, .points = 0};
-	printf("Player1\nEnter your name\n");
-	fgets(player1.name, 20, stdin);
-	player1.name[strlen(player1.name) - 1] = 0;
+	bool count_down_sequence = true;
+	bool redraw = true;
+	ALLEGRO_EVENT event;
+	al_register_event_source(event_queue, al_get_timer_event_source(count));
+	
+	al_start_timer(count);//now it will generate me three events, for 3 seconds of count down, then i will stop the timer, and continue game loop. how about thaaaaat?
 
-	printf("Player2\nEnter your name\n");
-	fgets(player2.name, 20, stdin);
-	player2.name[strlen(player2.name) - 1] = 0;
+	int current_count = 4;
+	while(count_down_sequence){
+	
+		al_wait_for_event(event_queue, &event);
+		switch(event.type){
+			case ALLEGRO_EVENT_TIMER:
+				current_count--;
+				redraw = true;	
+				if(current_count < 0)
+					count_down_sequence = false;	
+				
+		}		
+
+		if(redraw && count_down_sequence){
+			al_clear_to_color(al_map_rgb(0, 0, 0));
+			display_current_count(current_count);
+			redraw = false;
+			al_flip_display();
+		}	
+	}
+	
+
+	al_stop_timer(count);
+	al_unregister_event_source(event_queue, al_get_timer_event_source(count));
+	
+	al_register_event_source(event_queue, al_get_timer_event_source(timer));
 
 
 	Bar bar1 = {.position = {.x = 100, .y = 640 / 2 - 20 / 2}, .size = {.width = 20, .height = 100}, .color = al_map_rgb(255, 192, 203)};
 	Bar bar2 = {.position = {.x = 900 - 20, .y = 640 / 2 - 20 / 2}, .size = {.width = 20, .height = 100}, .color = al_map_rgb(255, 192, 203)};
 	Ball ball = {.position = {.x = DISPLAY_WIDTH/2 - BALL_RADIUS/2, .y = DISPLAY_HEIGHT/2 - BALL_RADIUS/2}, .velocity = {.x = -4, .y = -7}, BALL_RADIUS, al_map_rgb(255, 0, 0)};
 	bool game_over = false;
-	bool redraw = false;
-	ALLEGRO_EVENT event;
+	redraw = false;
 	enum y_direction direction = UP;
 
 	unsigned char key[ALLEGRO_KEY_MAX];
@@ -105,15 +138,14 @@ int main(){
 	bool point = false;
 	
 
+
 	al_start_timer(timer);//generates events, as the timer increments at a constant rate
 	while(!game_over){
 
-				
-	
 		al_wait_for_event(event_queue, &event);
 		switch(event.type){
 			case ALLEGRO_EVENT_TIMER:
-				redraw = true;//time for the next draw
+					redraw = true;//time for the next draw
 				
 				if(key[ALLEGRO_KEY_W])
 				 	move_bar(&bar1, UP, DISPLAY_HEIGHT);
@@ -149,8 +181,8 @@ int main(){
 
 			case ALLEGRO_EVENT_DISPLAY_CLOSE:
 				game_over = true;
+		
 		}
-
 		if(game_over)
 			break;
 		
@@ -197,6 +229,40 @@ int main(){
 			redraw = false;
 		}
 
-	}	
+	}
 
+	
+	
+	al_clear_to_color(al_map_rgb(0, 0, 0));
+	display_game_over((player1.points > player2.points)?player1.name:player2.name);
+	al_flip_display();
+	bool escape_press = false;
+	
+	while(!escape_press){
+	al_wait_for_event(event_queue, &event);
+		switch(event.type){
+			case ALLEGRO_EVENT_TIMER:
+				if(key[ALLEGRO_KEY_ESCAPE]){
+					escape_press = true;
+				}
+				break;
+			case ALLEGRO_EVENT_DISPLAY_CLOSE:
+				escape_press = true;
+				break;
+		
+			case ALLEGRO_EVENT_KEY_DOWN:
+				key[event.keyboard.keycode] = KEY_SEEN | KEY_RELEASED;
+				break;
+
+			case ALLEGRO_EVENT_KEY_UP:
+				key[event.keyboard.keycode] &= KEY_RELEASED;
+				break;
+
+		}
+		for(int i = 0; i < ALLEGRO_KEY_MAX; i++)
+			key[i] &= KEY_SEEN;
+	}
+
+
+	//destroy everything beyond this point ->
 }
