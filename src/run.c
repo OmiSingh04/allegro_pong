@@ -1,6 +1,5 @@
 #include <stdio.h>
-#include<stdlib.h>
-
+#include <stdlib.h>
 
 
 #include <allegro5/allegro5.h>
@@ -8,7 +7,9 @@
 #include <allegro5/allegro_acodec.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
+#include <allegro5/allegro_ttf.h>
 
+#include "font.h"
 #include "game.h"
 #include "sound.h"
 #define KEY_SEEN 1
@@ -68,21 +69,22 @@ int main(){
     	must_init(al_init_acodec_addon(), "audio codecs");
     	must_init(al_reserve_samples(16), "reserve samples");
 	must_init(al_init_font_addon(), "fonts");
-
+	must_init(al_init_ttf_addon(), "ttf_fonts");
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
 	al_register_event_source(event_queue, al_get_display_event_source(disp));
 	al_register_event_source(event_queue, al_get_timer_event_source(timer));
 	
 	init_sound_files();
-	
+	load_fonts();
 
 	Player player1 = {.name = {0}, .points = 0}, player2  = {.name = {0}, .points = 0};
 	printf("Player1\nEnter your name\n");
 	fgets(player1.name, 20, stdin);
-	
+	player1.name[strlen(player1.name) - 1] = 0;
 
 	printf("Player2\nEnter your name\n");
 	fgets(player2.name, 20, stdin);
+	player2.name[strlen(player2.name) - 1] = 0;
 
 
 	Bar bar1 = {.position = {.x = 100, .y = 640 / 2 - 20 / 2}, .size = {.width = 20, .height = 100}, .color = al_map_rgb(255, 192, 203)};
@@ -164,7 +166,7 @@ int main(){
 		if(redraw){
 				
 			al_clear_to_color(al_map_rgb(0, 0, 0));
-
+			render_points(player1.name, player2.name, player1.points, player2.points);
 			{//drawing them stars
 
 				Vector2* ptr = stars;
