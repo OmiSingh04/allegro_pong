@@ -10,4 +10,5 @@ That said, I have zero knowledge of game dev... Its the effort that matters :D <
 ![Game!](pics/image.png)
 
 reeeeeeeeeeeeee<br>
-More work to do...
+More work to do... <br>
+Now I just need to dispose the components properly, and add CMake.
