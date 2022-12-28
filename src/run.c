@@ -118,6 +118,9 @@ int main(){
 	al_stop_timer(count);
 	al_unregister_event_source(event_queue, al_get_timer_event_source(count));
 	
+	al_destroy_timer(count);
+
+
 	al_register_event_source(event_queue, al_get_timer_event_source(timer));
 
 
@@ -194,7 +197,7 @@ int main(){
 			reset_state(&bar1, &bar2, &ball, display_dimensions, BALL_RADIUS);
 		
 		
-		game_over = (!game_over && (player1.points >= 5 || player2.points >= 5))?true:false;
+		game_over = (!game_over && (player1.points >= MAX_POINTS || player2.points >= MAX_POINTS))?true:false;
 		if(redraw){
 				
 			al_clear_to_color(al_map_rgb(0, 0, 0));
@@ -231,6 +234,9 @@ int main(){
 
 	}
 
+
+	free(stars);
+
 	
 	
 	al_clear_to_color(al_map_rgb(0, 0, 0));
@@ -238,6 +244,8 @@ int main(){
 	al_flip_display();
 	bool escape_press = false;
 	
+
+
 	while(!escape_press){
 	al_wait_for_event(event_queue, &event);
 		switch(event.type){
@@ -265,4 +273,12 @@ int main(){
 
 
 	//destroy everything beyond this point ->
+	
+	al_destroy_timer(timer);
+
+	al_destroy_display(disp);
+	al_destroy_event_queue(event_queue);
+	destroy_sound_files();
+	al_shutdown_primitives_addon();
+	al_shutdown_font_addon();
 }

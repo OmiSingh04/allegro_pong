@@ -1,4 +1,4 @@
-A pong game being written in C. This is also... probably my first official C project...
+A naive pong game written in C. <br>
 
 Library - [allegro](https://liballeg.org/) <br>
 Drowning in school work. Help pls. <br>
@@ -10,5 +10,26 @@ That said, I have zero knowledge of game dev... Its the effort that matters :D <
 ![Game!](pics/image.png)
 
 reeeeeeeeeeeeee<br>
-More work to do... <br>
-Now I just need to dispose the components properly, and add CMake.
+Now I just need to dispose the components properly. <br>
+
+Dispossssssed. <br>
+
+to run... <br>
+
+1) clone
+```bash
+git clone https://github.com/OmiSingh04/allegro_pong.git
+cd allegro_pong
+```
+
+2) Change file mode (only once)
+
+```bash
+sudo chmod +x run.sh
+```
+
+3) run the script (library must be installed, i just got it off apt)
+
+```bash
+./run.sh
+```

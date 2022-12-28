@@ -19,3 +19,13 @@ void play_game_over(){
 void play_collide(){
 	al_play_sample(collide, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
 }
+
+void destroy_sound_files(){
+
+
+	al_destroy_sample(game_over);
+	al_destroy_sample(collide);
+
+	
+
+}

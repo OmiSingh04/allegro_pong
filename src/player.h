@@ -1,7 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#define MAX_POINTS 10
+#define MAX_POINTS 5
 
 
 typedef struct Player{
