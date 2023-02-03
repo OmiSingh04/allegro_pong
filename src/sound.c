@@ -3,6 +3,8 @@
 #include<stdio.h>
 #include "sound.h"
 
+ALLEGRO_SAMPLE *game_over;
+ALLEGRO_SAMPLE *collide;
 
 
 void init_sound_files(){
