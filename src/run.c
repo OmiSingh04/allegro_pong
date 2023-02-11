@@ -12,6 +12,8 @@
 #include "font.h"
 #include "game.h"
 #include "sound.h"
+
+
 #define KEY_SEEN 1
 #define KEY_RELEASED 2
 #define DISPLAY_WIDTH 1000
@@ -124,7 +126,7 @@ int main(){
 	al_register_event_source(event_queue, al_get_timer_event_source(timer));
 
 
-	Bar bar1 = {.position = {.x = 100, .y = 640 / 2 - 20 / 2}, .size = {.width = 20, .height = 100}, .color = al_map_rgb(255, 192, 203)};
+	Bar bar1 = {.position = {.x = 100, .y = 640 / 2 - 20 / 2}, .size = {.width = 20, .height = 100}, .color = al_map_rgb(0, 255, 255)};
 	Bar bar2 = {.position = {.x = 900 - 20, .y = 640 / 2 - 20 / 2}, .size = {.width = 20, .height = 100}, .color = al_map_rgb(255, 192, 203)};
 	Ball ball = {.position = {.x = DISPLAY_WIDTH/2 - BALL_RADIUS/2, .y = DISPLAY_HEIGHT/2 - BALL_RADIUS/2}, .velocity = {.x = -4, .y = -7}, BALL_RADIUS, al_map_rgb(255, 0, 0)};
 	bool game_over = false;

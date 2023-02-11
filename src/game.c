@@ -3,6 +3,10 @@
 #define BAR_VELOCITY  6.0
 
 
+extern ALLEGRO_SAMPLE *game_over;
+extern ALLEGRO_SAMPLE *collide;
+
+
 void reset_state(Bar* bar1, Bar* bar2, Ball* ball, Dimension display_dimensions, float BALL_RADIUS){
 	Vector2 v_bar1 = {.x = 100, .y = 640 / 2 - 20 / 2};
 	bar1->position = v_bar1;
