@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <allegro5/allegro_font.h>
 
+ALLEGRO_FONT *font;
+ALLEGRO_FONT *game_over_font;//need bigg size font :)
 
 void load_fonts(){
 	font = al_load_ttf_font("../../assets/8-bit-hud.ttf", 28, 0);
