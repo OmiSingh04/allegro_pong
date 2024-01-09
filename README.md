@@ -1,20 +1,11 @@
 A naive pong game written in C. <br>
 
 Library - [allegro](https://liballeg.org/) <br>
-Drowning in school work. Help pls. <br>
-<br>
-Its actually turning out to be really bad... The collisions are glitchy, and the ball's speed is not consistent at all. <br>
-
-That said, I have zero knowledge of game dev... Its the effort that matters :D <br>
+Its actually turning out to be really bad... The collisions are glitchy, and the ball's speed is not consistent but it seems playable. <br>
 
 ![Game!](pics/image.png)
 
-reeeeeeeeeeeeee<br>
-Now I just need to dispose the components properly. <br>
-
-Dispossssssed. <br>
-
-to run... <br>
+To run... <br>
 
 1) clone
 ```bash
@@ -33,3 +24,5 @@ sudo chmod +x run.sh
 ```bash
 ./run.sh
 ```
+
+Must have allegro installed!
